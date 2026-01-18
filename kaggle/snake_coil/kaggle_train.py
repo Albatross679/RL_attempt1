@@ -24,9 +24,15 @@ def main():
 
     # Install CUDA packages from PyTorch index
     print("\n" + "=" * 60)
-    print("STEP 2: Installing CUDA packages")
+    print("STEP 2: Installing CUDA packages from PyTorch index")
     print("=" * 60)
     run_cmd("pip install -r requirements-cuda.txt --index-url https://download.pytorch.org/whl/cu118")
+
+    # Install llvmlite and triton from PyPI (not available on PyTorch index)
+    print("\n" + "=" * 60)
+    print("STEP 2b: Installing llvmlite and triton from PyPI")
+    print("=" * 60)
+    run_cmd("pip install llvmlite==0.46.0 triton==3.3.1")
 
     # Install editable submodules
     print("\n" + "=" * 60)

@@ -1,6 +1,9 @@
 # Requirements for large CUDA/PyTorch packages excluded from GitHub
 # These packages contain .so files >100MB that exceed GitHub's file size limit
-# Run: pip install -r requirements-cuda.txt --index-url https://download.pytorch.org/whl/cu118
+#
+# Install in two steps:
+# 1. pip install -r requirements-cuda.txt --index-url https://download.pytorch.org/whl/cu118
+# 2. pip install llvmlite==0.46.0 triton==3.3.1
 
 # PyTorch (CUDA 11.8)
 torch==2.7.1+cu118
@@ -13,6 +16,6 @@ nvidia-cusolver-cu11==11.4.1.48
 nvidia-cusparse-cu11==11.7.5.86
 nvidia-nccl-cu11==2.21.5
 
-# Other large packages
-llvmlite==0.46.0
-triton==3.3.1
+# Note: llvmlite and triton must be installed from PyPI (not PyTorch index)
+# llvmlite==0.46.0
+# triton==3.3.1
