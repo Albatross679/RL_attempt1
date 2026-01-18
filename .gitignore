@@ -1,5 +1,5 @@
-# Virtual environment
-# .venv/
+# Virtual environments
+.venv/
 .venv312/
 
 # Large library files (>100MB, exceed GitHub limit)
