@@ -1,0 +1,9 @@
+*.so
+*.egg-info
+__pycache__
+venv
+.idea
+
+# Training results and logs
+results/
+py_train.*

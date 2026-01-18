@@ -1,5 +1,5 @@
 {
-  "id": "albatross679/snake-approach-ppo",
+  "id": "albatross679/snake-approach-ppo-training",
   "title": "Snake Approach PPO Training",
   "code_file": "kaggle_train.py",
   "language": "python",

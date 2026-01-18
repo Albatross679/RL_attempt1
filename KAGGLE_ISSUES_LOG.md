@@ -45,6 +45,15 @@ pip install -r requirements-cuda.txt --index-url https://download.pytorch.org/wh
 pip install llvmlite==0.46.0 triton==3.3.1
 ```
 
+### Issue: Submodules empty after clone (local commits not pushed)
+**Symptoms:** `ERROR: dismech-python does not appear to be a Python project: neither 'setup.py' nor 'pyproject.toml' found.`
+**Root cause:** Git submodules are stored as references (gitlinks) to specific commits. When you make changes to a submodule and commit in the parent repo, the parent only stores a pointer to the commit hash. When someone clones with `--recursive`, Git tries to fetch those commits from the submodule's remote origin - but if your commits were never pushed there, the submodule ends up empty or at the wrong commit.
+**Solution:** Either:
+1. Fork each submodule repo, update remote URLs, push changes to forks, OR
+2. Convert submodules to regular directories (embed the code directly)
+
+See solution implementation below.
+
 ---
 
 ## Run History
@@ -52,3 +61,4 @@ pip install llvmlite==0.46.0 triton==3.3.1
 | Date | Kernel | Status | Duration | Notes |
 |------|--------|--------|----------|-------|
 | 2026-01-18 | snake_approach v1 | ERROR | ~1 min | llvmlite not found on PyTorch index |
+| 2026-01-18 | snake_approach v2 | ERROR | ~3 min | Submodule dismech-python empty (local commits not pushed) |
