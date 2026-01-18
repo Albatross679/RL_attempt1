@@ -22,17 +22,18 @@ def main():
     run_cmd("git clone https://github.com/Albatross679/RL_attempt1.git")
     os.chdir("RL_attempt1")
 
-    # Install CUDA packages from PyTorch index
+    # Install CUDA packages from PyTorch index (torch, torchvision, torchaudio, nvidia libs)
     print("\n" + "=" * 60)
-    print("STEP 2: Installing CUDA packages from PyTorch index")
+    print("STEP 2: Installing PyTorch stack from PyTorch cu118 index")
     print("=" * 60)
+    run_cmd("pip install torch==2.7.1+cu118 torchvision==0.22.1+cu118 torchaudio==2.7.1+cu118 --index-url https://download.pytorch.org/whl/cu118")
     run_cmd("pip install -r requirements-cuda.txt --index-url https://download.pytorch.org/whl/cu118")
 
-    # Install llvmlite and triton from PyPI (not available on PyTorch index)
+    # Install llvmlite from PyPI (not available on PyTorch index)
     print("\n" + "=" * 60)
-    print("STEP 2b: Installing llvmlite and triton from PyPI")
+    print("STEP 2b: Installing llvmlite from PyPI")
     print("=" * 60)
-    run_cmd("pip install llvmlite==0.46.0 triton==3.3.1")
+    run_cmd("pip install llvmlite==0.46.0")
 
     # Install local packages
     print("\n" + "=" * 60)

@@ -54,6 +54,15 @@ pip install llvmlite==0.46.0 triton==3.3.1
 
 See solution implementation below.
 
+### Issue: torchvision/torchaudio +cu118 versions not found on PyPI
+**Symptoms:** `ERROR: Could not find a version that satisfies the requirement torchvision==0.22.1+cu118`
+**Root cause:** The alf package requires `torchvision==0.22.1+cu118` which is only available on the PyTorch wheel index, not PyPI. When pip installs alf's dependencies, it looks on PyPI and can't find this version.
+**Solution:** Install the full PyTorch stack (torch, torchvision, torchaudio) from the PyTorch index BEFORE installing alf:
+```bash
+pip install torch==2.7.1+cu118 torchvision==0.22.1+cu118 torchaudio==2.7.1+cu118 --index-url https://download.pytorch.org/whl/cu118
+pip install -e alf/
+```
+
 ---
 
 ## Run History
@@ -62,3 +71,4 @@ See solution implementation below.
 |------|--------|--------|----------|-------|
 | 2026-01-18 | snake_approach v1 | ERROR | ~1 min | llvmlite not found on PyTorch index |
 | 2026-01-18 | snake_approach v2 | ERROR | ~3 min | Submodule dismech-python empty (local commits not pushed) |
+| 2026-01-18 | snake_approach v3 | ERROR | ~3 min | torchvision+cu118 not found on PyPI |
