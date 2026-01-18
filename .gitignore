@@ -1,5 +1,15 @@
 # Virtual environment
-.venv/
+# .venv/
+
+# Large library files (>100MB, exceed GitHub limit)
+.venv/lib/python*/site-packages/nvidia/*/lib/*.so*
+.venv/lib/python*/site-packages/torch/lib/libtorch_cpu.so
+.venv/lib/python*/site-packages/torch/lib/libtorch_cuda.so
+.venv/lib/python*/site-packages/llvmlite/binding/libllvmlite.so
+.venv/lib/python*/site-packages/triton/_C/libtriton.so
+
+# Training results
+results/
 
 # Python
 __pycache__/
