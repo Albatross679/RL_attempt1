@@ -15,11 +15,11 @@ def run_cmd(cmd, check=True):
     return result.returncode
 
 def main():
-    # Clone the repository with all submodules
+    # Clone the repository
     print("=" * 60)
     print("STEP 1: Cloning repository")
     print("=" * 60)
-    run_cmd("git clone --recursive https://github.com/Albatross679/RL_attempt1.git")
+    run_cmd("git clone https://github.com/Albatross679/RL_attempt1.git")
     os.chdir("RL_attempt1")
 
     # Install CUDA packages from PyTorch index
@@ -34,7 +34,7 @@ def main():
     print("=" * 60)
     run_cmd("pip install llvmlite==0.46.0 triton==3.3.1")
 
-    # Install editable submodules
+    # Install local packages
     print("\n" + "=" * 60)
     print("STEP 3: Installing dismech-python")
     print("=" * 60)
