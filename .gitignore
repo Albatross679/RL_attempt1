@@ -1,5 +1,6 @@
 # Virtual environment
 # .venv/
+.venv312/
 
 # Large library files (>100MB, exceed GitHub limit)
 .venv/lib/python*/site-packages/nvidia/*/lib/*.so*

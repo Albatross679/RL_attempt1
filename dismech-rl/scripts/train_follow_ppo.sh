@@ -7,7 +7,18 @@
 # -------------------- Path Detection --------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SCRIPT_PATH="$SCRIPT_DIR/train_follow_ppo.sh"
+
+# -------------------- Virtual Environment Activation --------------------
+VENV_PATH="${REPO_ROOT}/.venv312"
+if [ -f "${VENV_PATH}/bin/activate" ]; then
+    source "${VENV_PATH}/bin/activate"
+    echo "Activated Python 3.12 environment: ${VENV_PATH}"
+else
+    echo "Warning: Python 3.12 venv not found at ${VENV_PATH}"
+    echo "Please create it with: python3.12 -m venv ${VENV_PATH}"
+fi
 
 # USAGE:
 #   Navigate to script directory and run:
