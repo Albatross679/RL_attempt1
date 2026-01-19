@@ -11,13 +11,13 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SCRIPT_PATH="$SCRIPT_DIR/train_follow_sac.sh"
 
 # -------------------- Virtual Environment Activation --------------------
-VENV_PATH="${REPO_ROOT}/.venv312"
+VENV_PATH="${REPO_ROOT}/.venv"
 if [ -f "${VENV_PATH}/bin/activate" ]; then
     source "${VENV_PATH}/bin/activate"
-    echo "Activated Python 3.12 environment: ${VENV_PATH}"
+    echo "Activated environment: ${VENV_PATH}"
 else
-    echo "Warning: Python 3.12 venv not found at ${VENV_PATH}"
-    echo "Please create it with: python3.12 -m venv ${VENV_PATH}"
+    echo "Warning: venv not found at ${VENV_PATH}"
+    echo "Please run setup.sh first"
 fi
 
 # USAGE:

@@ -33,4 +33,6 @@ build/
 # Logs
 *.log
 runs/
-kaggle_results/
+
+# Claude Code CLI
+claude
