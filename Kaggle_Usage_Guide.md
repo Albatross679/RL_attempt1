@@ -173,3 +173,47 @@ bash train_follow_sac.sh
 | `kaggle config view` | Show current configuration |
 | `kaggle competitions list` | List active competitions |
 | `kaggle datasets list -s <query>` | Search datasets |
+
+---
+
+## 6. Running on Kaggle Notebooks
+
+### Setup
+
+1. Create a new Kaggle notebook at [kaggle.com/code](https://www.kaggle.com/code)
+2. Enable **GPU** in Settings → Accelerator → GPU
+3. In the first code cell, run:
+
+```python
+!wget -q https://raw.githubusercontent.com/Albatross679/RL_attempt1/main/kaggle_setup.py
+exec(open('kaggle_setup.py').read())
+```
+
+Or copy the contents of `kaggle_setup.py` into a cell and run it.
+
+### Running Training
+
+After setup completes, run training in a new cell:
+
+```python
+import os
+os.chdir("/kaggle/working/RL_attempt1/dismech-rl")
+
+# SAC training with reduced parallel environments (for Kaggle memory limits)
+!python -m alf.bin.train \
+    --conf confs/follow_conf.py \
+    --root_dir ./results/kaggle_sac \
+    --conf_param "create_environment.num_parallel_environments=32" \
+    --conf_param "TrainerConfig.num_iterations=1000"
+```
+
+### Kaggle Limitations
+
+| Resource | Limit |
+|----------|-------|
+| GPU time | ~30 hours/week |
+| Session runtime | 9-12 hours max |
+| RAM | ~16GB |
+| Disk | 20GB |
+
+**Tip:** Use fewer parallel environments (`num_parallel_environments=32`) to fit within Kaggle's memory limits.
