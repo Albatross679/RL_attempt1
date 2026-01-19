@@ -190,12 +190,12 @@ class SnakeCoilEnv(BaseEnv):
         # Set cylinder
         self._cylinder = cylinder
 
-        # Set robot state
+        # Set robot state (positions/velocities are already shape (NUM_NODES, 3))
         node_indices = np.arange(NUM_NODES)
         dof_indices = self._robot.map_node_to_dof(node_indices)
 
-        self._robot.state.q[dof_indices] = positions.ravel()
-        self._robot.state.u[dof_indices] = velocities.ravel()
+        self._robot.state.q[dof_indices] = positions
+        self._robot.state.u[dof_indices] = velocities
 
         # Reset wrap tracking
         self._prev_wrap_angle = compute_wrap_angle(positions, cylinder)
