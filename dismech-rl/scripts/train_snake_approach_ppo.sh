@@ -38,7 +38,7 @@ fi
 # -------------------- Configurable Parameters --------------------
 export ROOT_DIR="${ROOT_DIR:-${PROJECT_ROOT}/results/snake_approach_ppo_$(date +%Y%m%d_%H%M%S)}"
 export NUM_PARALLEL_ENVS="${NUM_PARALLEL_ENVS:-256}"  # Lower than SAC due to unroll memory
-export NUM_ITERATIONS="${NUM_ITERATIONS:-50000}"
+export NUM_ITERATIONS="${NUM_ITERATIONS:-5000}"
 export LEARNING_RATE="${LEARNING_RATE:-1e-3}"
 export MINI_BATCH_SIZE="${MINI_BATCH_SIZE:-1024}"
 export HIDDEN_LAYERS="${HIDDEN_LAYERS:-"(256, 256, 256)"}"

@@ -33,6 +33,7 @@ build/
 # Logs
 *.log
 runs/
+slurm_logs/
 
 # Claude Code CLI
 claude
