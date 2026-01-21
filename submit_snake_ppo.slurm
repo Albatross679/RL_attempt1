@@ -105,6 +105,49 @@ python3 -c "import subprocess; subprocess.check_output('ninja --version'.split()
 echo "Checking GPU availability..."
 python3 -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}'); print(f'Device: {torch.cuda.get_device_name(0)}' if torch.cuda.is_available() else 'No GPU')"
 
+# ============================================================
+# TensorBoard Server (Background)
+# ============================================================
+TB_PORT=$((6000 + (SLURM_JOB_ID % 1000)))
+TB_HOST=$(hostname)
+TB_IP=$(hostname -i)
+TB_INFO_FILE="${PROJECT_ROOT}/.tensorboard_info"
+TB_LOG_DIR="${PROJECT_ROOT}/dismech-rl/results"
+
+# Write connection info for external scripts
+cat > "$TB_INFO_FILE" << EOF
+TB_JOB_ID=$SLURM_JOB_ID
+TB_HOST=$TB_HOST
+TB_IP=$TB_IP
+TB_PORT=$TB_PORT
+TB_LOG_DIR=$TB_LOG_DIR
+EOF
+
+echo "=============================================="
+echo "TensorBoard Server Starting"
+echo "=============================================="
+echo "Node: $TB_HOST ($TB_IP)"
+echo "Port: $TB_PORT"
+echo "Log Dir: $TB_LOG_DIR"
+echo ""
+echo "To connect from your LOCAL machine, run:"
+echo "  ssh -N -L ${TB_PORT}:${TB_HOST}:${TB_PORT} qifanwen@pitzer.osc.edu"
+echo "Then open: http://localhost:${TB_PORT}"
+echo "=============================================="
+
+# Start TensorBoard in background
+tensorboard --logdir="$TB_LOG_DIR" --port=$TB_PORT --bind_all 2>&1 | head -5 &
+TB_PID=$!
+sleep 3  # Give TensorBoard time to start
+
+# Cleanup function
+cleanup_tensorboard() {
+    echo "Stopping TensorBoard (PID: $TB_PID)..."
+    kill $TB_PID 2>/dev/null
+    rm -f "$TB_INFO_FILE"
+}
+trap cleanup_tensorboard EXIT
+
 # Run training
 cd /users/PAS3272/qifanwen/RL_attempt1/dismech-rl/scripts
 bash train_snake_approach_ppo.sh

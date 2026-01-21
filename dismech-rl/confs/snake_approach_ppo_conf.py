@@ -30,7 +30,7 @@ alf.config("SnakeApproachEnv",
            success_threshold=0.15,
            rft_ct=0.01,
            rft_cn=0.1,
-           potential_type="none",  # Options: none|simple_distance|distance_alignment|time_to_goal|exp_distance
+           potential_type="simple_distance",  # Options: none|simple_distance|distance_alignment|time_to_goal|exp_distance
            potential_gamma=0.99,
            potential_params={},
            render=render)

@@ -29,7 +29,7 @@ alf.config("SnakeCoilEnv",
            success_wrap_angle=6.28,  # 2*pi radians
            rft_ct=0.01,
            rft_cn=0.1,
-           potential_type="none",  # Options: none|wrap_progress|wrap_contact|geometric
+           potential_type="wrap_progress",  # Options: none|wrap_progress|wrap_contact|geometric
            potential_gamma=0.99,
            potential_params={},
            render=render)
