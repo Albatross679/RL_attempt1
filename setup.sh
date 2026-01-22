@@ -60,6 +60,55 @@ if ! detect_python312; then
     exit 1
 fi
 
+# -------------------- Check/Install SWIG --------------------
+# SWIG is required for building box2d-py (gym dependency)
+check_install_swig() {
+    if command -v swig &>/dev/null; then
+        echo "SWIG detected: $(swig -version | grep Version)"
+        return 0
+    fi
+
+    echo "SWIG not found. Attempting installation..."
+
+    # Priority 1: HPC module
+    if command -v module &>/dev/null; then
+        echo "Attempting to load swig module..."
+        if module load swig 2>/dev/null; then
+             echo "Loaded swig module."
+             return 0
+        fi
+    fi
+
+    # Priority 2: System package managers
+    # Check for sudo access if not root
+    SUDO_CMD=""
+    if [ "$EUID" -ne 0 ]; then
+        if command -v sudo &>/dev/null; then
+            SUDO_CMD="sudo"
+        else
+            echo "WARNING: SWIG is missing and cannot install (no sudo). setup.sh may fail."
+            return 1
+        fi
+    fi
+
+    if command -v apt-get &>/dev/null; then
+        echo "Installing swig via apt-get..."
+        $SUDO_CMD apt-get update && $SUDO_CMD apt-get install -y swig
+    elif command -v dnf &>/dev/null; then
+        echo "Installing swig via dnf..."
+        $SUDO_CMD dnf install -y swig
+    elif command -v yum &>/dev/null; then
+         echo "Installing swig via yum..."
+        $SUDO_CMD yum install -y swig
+    else
+        echo "WARNING: Could not detect package manager to install SWIG. setup.sh may fail."
+        return 1
+    fi
+}
+
+check_install_swig
+
+
 # -------------------- Create Virtual Environment --------------------
 echo ""
 echo "Creating Python 3.12 virtual environment..."
@@ -100,7 +149,7 @@ pip install numpy==1.26.0 scipy matplotlib pybind11 pybullet opencv-python \
 
 pip install absl-py tensorboard protobuf pyyaml h5py numba llvmlite psutil dill tqdm ipython ninja
 pip install pyelastica
-pip install git+https://github.com/HorizonRobotics/gin-config.git@6757358b3faec531241cf138889031efa08fed1e
+pip install git+https://github.com/HorizonRobotics/gin-config.git@6757358b3faec531741cf138889031efa08fed1e
 pip install git+https://github.com/HorizonRobotics/cnest.git@b7a62849ac4531225229cff3a5d5f8fc654bda3f
 
 echo ""
